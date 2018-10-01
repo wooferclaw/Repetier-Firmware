@@ -207,12 +207,10 @@ void CNCDriver::spindleOnCW(int32_t rpm)
   spindleSpeed=map(rpm,0,CNC_RPM_MAX,0,CNC_PWM_MAX);// linear interpolation
 
   
-    if(direction == 1 && spindleRpm == rpm)
+    if(direction == 1)
         return;
-    if(direction == -1) {
-	    spindleOff();
-    }
-    spindleRpm = rpm;// for display
+    spindleOff();
+    spindleRpm=rpm;// for display
     direction = 1;
     if(EVENT_SPINDLE_CW(rpm)) {
 #if CNC_DIRECTION_PIN > -1
@@ -233,12 +231,10 @@ void CNCDriver::spindleOnCCW(int32_t rpm)
 {
         spindleSpeed=map(rpm,0,CNC_RPM_MAX,0,CNC_PWM_MAX);// linear interpolation
    
-    if(direction == -1 && spindleRpm == rpm)
+    if(direction == -1)
         return;
-    if(direction == 1) {
-		spindleOff();
-	}
-    spindleRpm = rpm;// for display
+    spindleOff();
+    spindleRpm=rpm;// for display
     direction = -1;
     if(EVENT_SPINDLE_CCW(rpm)) {
 #if CNC_DIRECTION_PIN > -1
